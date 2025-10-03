@@ -27,7 +27,7 @@ const CreateCampaign = () => {
         body,
         start_date: startDate,
         end_date: endDate,
-        medias: imageUrl ? [{ url: imageUrl, type: "image" }] : [],
+        medias: imageUrl ? [imageUrl] : [],
       };
 
       const campaign = await createCampaign(payload, adminKey);
