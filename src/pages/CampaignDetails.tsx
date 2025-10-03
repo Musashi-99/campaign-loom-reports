@@ -20,6 +20,9 @@ const CampaignDetails = () => {
   const [submitting, setSubmitting] = useState(false);
   const [campaign, setCampaign] = useState<any | null>(null);
   const [comments, setComments] = useState<any[]>([]);
+  const [skip, setSkip] = useState(0);
+  const [limit] = useState(10);
+  const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -27,12 +30,14 @@ const CampaignDetails = () => {
     setLoading(true);
     Promise.all([
       getCampaign(campaignId),
-      listCampaignComments(campaignId, { skip: 0, limit: 50 }),
+      listCampaignComments(campaignId, { skip: 0, limit }),
     ])
       .then(([c, cmts]) => {
         if (!active) return;
         setCampaign(c);
         setComments(cmts || []);
+        setSkip((cmts?.length || 0));
+        setHasMore((cmts?.length || 0) === limit);
       })
       .catch(() => {
         toast.error("Failed to load campaign");
@@ -76,6 +81,17 @@ const CampaignDetails = () => {
       toast.error(e?.message || "Failed to add comment");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const loadMore = async () => {
+    try {
+      const next = await listCampaignComments(campaignId, { skip, limit });
+      setComments((prev) => [...prev, ...(next || [])]);
+      setSkip(skip + (next?.length || 0));
+      setHasMore((next?.length || 0) === limit);
+    } catch {
+      toast.error("Failed to load more comments");
     }
   };
 
@@ -225,6 +241,11 @@ const CampaignDetails = () => {
             </Card>
           ))}
         </div>
+        {hasMore && (
+          <div className="mt-6">
+            <Button variant="outline" onClick={loadMore} className="transition-smooth">Load more</Button>
+          </div>
+        )}
       </div>
     </div>
   );

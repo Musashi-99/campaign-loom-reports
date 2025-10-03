@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus } from "lucide-react";
+import { Eye, ExternalLink, Plus } from "lucide-react";
 import { listCampaigns } from "@/services/api";
 
 const Dashboard = () => {
@@ -91,9 +91,14 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 {/* Extra stats not needed now */}
-                <Button variant="outline" className="w-full mt-4 transition-smooth" onClick={(e) => { e.stopPropagation(); navigate(`/campaign/${campaign.id}`); }}>
-                  View Details
-                </Button>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  <Button variant="outline" className="w-full transition-smooth" onClick={(e) => { e.stopPropagation(); navigate(`/campaign/${campaign.id}`); }}>
+                    <Eye className="h-4 w-4 mr-2" /> View
+                  </Button>
+                  <Button variant="outline" className="w-full transition-smooth" onClick={(e) => { e.stopPropagation(); window.open(`/campaign/${campaign.id}`, "_blank"); }}>
+                    <ExternalLink className="h-4 w-4 mr-2" /> Open
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}
