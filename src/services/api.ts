@@ -77,4 +77,21 @@ export async function listCampaigns(params?: { skip?: number; limit?: number }) 
   return res.json();
 }
 
+export async function getReportSummary(campaignId: number, params?: { top_n?: number; batch_size?: number }) {
+  const url = new URL(`${BASE_URL}/reports/${campaignId}/summary`);
+  if (params?.top_n != null) url.searchParams.set("top_n", String(params.top_n));
+  if (params?.batch_size != null) url.searchParams.set("batch_size", String(params.batch_size));
+  const res = await fetch(url, { headers: { "X-Admin-Key": sessionStorage.getItem("X-Admin-Key") || "" } });
+  if (!res.ok) throw new Error(`Failed to fetch report summary: ${res.status}`);
+  return res.json();
+}
+
+export async function getReportSentiments(campaignId: number, params?: { batch_size?: number }) {
+  const url = new URL(`${BASE_URL}/reports/${campaignId}/sentiments`);
+  if (params?.batch_size != null) url.searchParams.set("batch_size", String(params.batch_size));
+  const res = await fetch(url, { headers: { "X-Admin-Key": sessionStorage.getItem("X-Admin-Key") || "" } });
+  if (!res.ok) throw new Error(`Failed to fetch sentiments: ${res.status}`);
+  return res.json();
+}
+
 

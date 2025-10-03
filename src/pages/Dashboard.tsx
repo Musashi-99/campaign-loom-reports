@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, ExternalLink, Plus } from "lucide-react";
+import { Eye, ExternalLink, Plus, MoreVertical, BarChart2 } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { listCampaigns } from "@/services/api";
 
 const Dashboard = () => {
@@ -90,14 +91,30 @@ const Dashboard = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                {/* Extra stats not needed now */}
-                <div className="grid grid-cols-2 gap-3 mt-2">
-                  <Button variant="outline" className="w-full transition-smooth" onClick={(e) => { e.stopPropagation(); navigate(`/campaign/${campaign.id}`); }}>
-                    <Eye className="h-4 w-4 mr-2" /> View
-                  </Button>
-                  <Button variant="outline" className="w-full transition-smooth" onClick={(e) => { e.stopPropagation(); window.open(`/campaign/${campaign.id}`, "_blank"); }}>
-                    <ExternalLink className="h-4 w-4 mr-2" /> Open
-                  </Button>
+                <div className="flex items-center justify-between gap-3 mt-2">
+                  <div className="flex gap-2">
+                    <Button variant="outline" className="transition-smooth" onClick={(e) => { e.stopPropagation(); navigate(`/campaign/${campaign.id}`); }}>
+                      <Eye className="h-4 w-4 mr-2" /> View
+                    </Button>
+                    <Button variant="outline" className="transition-smooth" onClick={(e) => { e.stopPropagation(); window.open(`/campaign/${campaign.id}`, "_blank"); }}>
+                      <ExternalLink className="h-4 w-4 mr-2" /> Open
+                    </Button>
+                    <Button variant="outline" className="transition-smooth" onClick={(e) => { e.stopPropagation(); navigate(`/reports/${campaign.id}`); }}>
+                      <BarChart2 className="h-4 w-4 mr-2" /> Reports
+                    </Button>
+                  </div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="icon">
+                        <MoreVertical className="h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={(e) => { e.stopPropagation(); navigate(`/campaign/${campaign.id}`); }}>View</DropdownMenuItem>
+                      <DropdownMenuItem onClick={(e) => { e.stopPropagation(); window.open(`/campaign/${campaign.id}`, "_blank"); }}>Open in new tab</DropdownMenuItem>
+                      <DropdownMenuItem onClick={(e) => { e.stopPropagation(); navigate(`/reports/${campaign.id}`); }}>Reports</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               </CardContent>
             </Card>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, MessageSquare, ThumbsUp, ThumbsDown, Meh, Plus } from "lucide-react";
+import { MessageSquare, ThumbsUp, ThumbsDown, Meh, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -97,22 +97,12 @@ const CampaignDetails = () => {
 
   return (
     <div className="p-8 space-y-8 animate-fade-in">
-      <div className="flex items-center gap-4 mb-6">
-        <Button 
-          variant="outline" 
-          size="icon" 
-          onClick={() => navigate("/dashboard")}
-          className="transition-smooth"
-        >
-          <ArrowLeft className="h-4 w-4" />
-        </Button>
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-4xl font-bold">{campaign?.title || "Campaign"}</h1>
-            <Badge className="bg-success text-success-foreground">Active</Badge>
-          </div>
-          <p className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: campaign?.body || "" }} />
+      <div className="mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <h1 className="text-4xl font-bold">{campaign?.title || "Campaign"}</h1>
+          <Badge className="bg-success text-success-foreground">Active</Badge>
         </div>
+        <p className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: campaign?.body || "" }} />
       </div>
 
       {/* Campaign Stats */}

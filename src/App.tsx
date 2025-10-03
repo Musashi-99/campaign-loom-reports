@@ -8,8 +8,10 @@ import CampaignDetails from "./pages/CampaignDetails";
 import Reports from "./pages/Reports";
 // import Settings from "./pages/Settings";
 import AppLayout from "./components/AppLayout";
+import PublicLayout from "./components/PublicLayout";
 import NotFound from "./pages/NotFound";
 import CreateCampaign from "./pages/CreateCampaign";
+import ReportDetails from "./pages/ReportDetails";
 
 const queryClient = new QueryClient();
 
@@ -23,10 +25,13 @@ const App = () => (
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/campaign/:id" element={<CampaignDetails />} />
             <Route path="/campaigns/new" element={<CreateCampaign />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/reports/:id" element={<ReportDetails />} />
             {/** <Route path="/settings" element={<Settings />} /> */}
+          </Route>
+          <Route element={<PublicLayout />}>
+            <Route path="/campaign/:id" element={<CampaignDetails />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
