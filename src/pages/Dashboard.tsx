@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,6 +8,7 @@ import { BarChart3, TrendingUp, Users, MessageSquare, Plus, Search } from "lucid
 
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const stats = [
     { title: "Total Campaigns", value: "24", icon: BarChart3, trend: "+12%", color: "text-primary" },
@@ -79,7 +81,7 @@ const Dashboard = () => {
           <h1 className="text-4xl font-bold mb-2">Dashboard</h1>
           <p className="text-muted-foreground">Overview of your campaigns and analytics</p>
         </div>
-        <Button className="gap-2 transition-smooth hover:shadow-elegant">
+        <Button className="gap-2 transition-smooth hover:shadow-elegant" onClick={() => navigate("/campaigns/new") }>
           <Plus className="h-4 w-4" />
           New Campaign
         </Button>
@@ -128,6 +130,7 @@ const Dashboard = () => {
             <Card 
               key={campaign.id} 
               className="transition-smooth hover:shadow-elegant-md hover:-translate-y-1 cursor-pointer"
+              onClick={() => navigate(`/campaign/${campaign.id}`)}
             >
               <CardHeader>
                 <div className="flex items-start justify-between">
@@ -157,7 +160,7 @@ const Dashboard = () => {
                     <p className="font-semibold text-lg">{campaign.engagement}</p>
                   </div>
                 </div>
-                <Button variant="outline" className="w-full mt-4 transition-smooth">
+                <Button variant="outline" className="w-full mt-4 transition-smooth" onClick={(e) => { e.stopPropagation(); navigate(`/campaign/${campaign.id}`); }}>
                   View Details
                 </Button>
               </CardContent>

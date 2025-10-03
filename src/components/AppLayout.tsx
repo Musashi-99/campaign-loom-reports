@@ -9,7 +9,7 @@ const AppLayout = () => {
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Campaign Details", href: "/campaign", icon: BarChart3 },
+    { name: "Create Campaign", href: "/campaigns/new", icon: BarChart3 },
     { name: "Reports", href: "/reports", icon: FileText },
     { name: "Settings", href: "/settings", icon: Settings },
   ];
@@ -70,11 +70,11 @@ const AppLayout = () => {
           <div className="p-4 border-t border-border">
             <div className="flex items-center gap-3 px-4 py-3">
               <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center">
-                <span className="font-semibold text-primary text-sm">JD</span>
+                <span className="font-semibold text-primary text-sm">GU</span>
               </div>
               <div className="flex-1">
-                <p className="font-medium text-sm">John Doe</p>
-                <p className="text-xs text-muted-foreground">john@example.com</p>
+                <p className="font-medium text-sm">Guest User</p>
+                <p className="text-xs text-muted-foreground">no-auth@example.com</p>
               </div>
             </div>
           </div>
